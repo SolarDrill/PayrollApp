@@ -1,0 +1,113 @@
+﻿@page
+@model RegistroPageModel
+@{
+    ViewData["Title"] = "Registro de Transacciones";
+}
+
+<header class="bg-white shadow">
+    <div class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">Empleados</h1>
+    </div>
+</header>
+<main id="new-employees">
+    <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+
+        <button onclick="openModal()" class="primary-btn-style2 mt-8 mb-4 ml-8">
+            Nueva cuenta
+        </button>
+        <div class="table-content">
+            <table class="table-conteiner conteiner action-check-table action-btn-table ">
+                <thead>
+                    <tr class="sticky">
+                        <th>Id</th>
+                        <th>Cedula</th>
+                        <th>Nombre</th>
+                        <th>Departamento</th>
+                        <th>Posicion</th>
+                        <th>Salario Mensual</th>
+                        <th>PayrollId</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.TransactionRecords != null)
+                    {
+                        @foreach (var employee in Model.TransactionRecords)
+                    {
+                        <tr>
+                            <td class="pl-2">@employee.Id</td>
+                                <td class="pl-2">@employee.EmployeeId</td>
+                                <td class="pl-2">@employee.IncomeOrDeductionId</td>
+                                <td class="pl-2">@employee.TransactionType</td>
+                                <td class="pl-2">@employee.Date</td>
+                                <td class="pl-2">@employee.Amount</td>
+                                <td class="pl-2">@employee.State</td>
+                            <td class="pl-4 justify-between">
+                                <button onclick="testModal(@Html.Raw(Json.Serialize(employee)))" class="mr-5 flex-row rounded-md bg-amber-400 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400">
+                                    <img alt="Detalle" class="item-center" src="/assets/img/edit-pencil.svg" />
+                                </button>
+                                    <button asp-page-handler="Eliminar" asp-route-id="@employee.Id" class="mr-5 rounded-md bg-red-500 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
+                                        <img alt="Detalle" class="item-center" src="/assets/img/delete-item.svg" />
+                                    </button>
+                            </td>
+                        </tr>
+                    }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<div id="employees-modal" class="hidden edit-client">
+    <form method="post" asp-page-handler="Crear">
+        <div class="hidden">
+            <input type="text" id="key" name="Id" asp-for="Employee.Id" value="0" />
+        </div>
+        <div class="form-group grid grid-cols-2 mb-5 normal-input">
+            <div>
+                <label for="Cedula">Cédula</label>
+                <input type="text" id="Cedula" name="Cedula" asp-for="Employee.EmployeeId" />
+            </div>
+            <div>
+                <label for="Name">Nombre</label>
+                <input type="text" id="Name" name="Name" asp-for="Employee.IncomeOrDeductionId" />
+            </div>
+        </div>
+        <div class="form-group grid grid-cols-2 mb-5 normal-input">
+            <div>
+                <label for="Department">Departamento</label>
+                <input type="text" id="Department" name="Department" asp-for="Employee.TransactionType" />
+            </div>
+            <div>
+                <label for="Position">Posición</label>
+                <input type="text" id="Position" name="Position" asp-for="Employee.Date" />
+            </div>
+        </div>
+        <div class="form-group grid grid-cols-2 mb-5 normal-input">
+            <div>
+                <label for="MonthlySalary">Salario Mensual</label>
+                <input type="text" id="MonthlySalary" name="MonthlySalary" asp-for="Employee.Amount" />
+            </div>
+            <div>
+                <label for="PayrollId">PayrollId</label>
+                <input type="text" id="PayrollId" name="PayrollId" asp-for="Employee.State" />
+            </div>
+        </div>
+        <div class="flex justify-end bottom-buttons-container mt-10">
+            <button type="reset" class="secondary-btn-style mr-10 my-5" onclick="openModal()">Cancelar</button>
+            <button type="submit" class="primary-btn-style mr-10 my-5">Guardar</button>
+            <button type="button" class="primary-btn-style mr-10 my-5">Editar</button>
+        </div>
+    </form>
+</div>
+
+                <script>
+    function testModal(employee) {
+        if (employee) {
+            console.log(JSON.stringify(rowData));
+
+        }
+
+                </script>
