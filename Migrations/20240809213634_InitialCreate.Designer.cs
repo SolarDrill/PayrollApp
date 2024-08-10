@@ -12,8 +12,8 @@ using payroll.Data;
 namespace payroll.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240706081134_update")]
-    partial class update
+    [Migration("20240809213634_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
